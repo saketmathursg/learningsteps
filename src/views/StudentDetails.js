@@ -24,7 +24,7 @@ export default function StudentDetails() {
 
   
 async function deleteStudent(id) {
-  await deleteDoc(doc(db, "posts", id));
+  await deleteDoc(doc(db, "students", id));
   navigate("/");
 }
 
@@ -32,13 +32,13 @@ async function deleteStudent(id) {
   async function getStudent(id) {
     const studentDocument = await getDoc(doc(db, "students", id));
     const student = studentDocument.data();
-    setName(student.Name);
-    setSchool(student.School); 
-    setSection(student.Class);
-    setMaths(student.Maths);
-    setPhysics(student.Physics);
-    setChemistry(student.Chemistry);
-    setBiology(student.Biology);
+    setName(student.name);
+    setSchool(student.school); 
+    setSection(student.section);
+    setMaths(student.maths);
+    setPhysics(student.physics);
+    setChemistry(student.chemistry);
+    setBiology(student.biology);
 
   }
 

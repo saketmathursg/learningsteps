@@ -3,7 +3,8 @@ import LoginPage from "./views/LoginPage";
 //import PostPageHome from "./views/PostPageHome";
 import SignUpPage from "./views/SignUpPage";
 import LandingPage from "./views/LandingPage";
-import StudentDetails from "./views/StudentDetails"
+import StudentAdd from "./views/StudentAdd";
+import StudentDetails from "./views/StudentDetails";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/add" element={<StudentAdd />} />
         <Route path="/student/:id" element={<StudentDetails />} />
         <Route path="/signup" element={<SignUpPage />} />
       </Routes>

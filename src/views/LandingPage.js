@@ -54,7 +54,7 @@ export default function LandingPage() {
 }
 
 function ImageSquare({ student }) {
-  const { Name, School, Class, id } = student;
+  const { name, school, section, id } = student;
   return (
     <>
     
@@ -67,10 +67,10 @@ function ImageSquare({ student }) {
         marginLeft: "1rem",
         marginTop: "2rem",
       }}>
-        <td>{Name}</td>
+        <td>{name}</td>
         </Link>
-        <td>{School}</td>
-        <td>{Class}</td>
+        <td>{school}</td>
+        <td>{section}</td>
         </tr>
         </tbody>
     </>
