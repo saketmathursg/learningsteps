@@ -6,6 +6,7 @@ import LandingPage from "./views/LandingPage";
 import StudentAdd from "./views/StudentAdd";
 import StudentDetails from "./views/StudentDetails";
 import StudentUpdate from "./views/StudentUpdate";
+import Attendance from "./views/Attendance";
 
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
         <Route path="/student/:id" element={<StudentDetails />} />
         <Route path="/update/:id" element={<StudentUpdate />} />
         <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/attendace" element={<Attendance />} />
+
       </Routes>
     </BrowserRouter>
   );

@@ -41,7 +41,7 @@ export default function StudentAdd() {
           <Navbar.Brand href="/">Learning Steps - Building Your Future</Navbar.Brand>
           <Nav>
             <Nav.Link href="/add">Register</Nav.Link>
-            <Nav.Link href="/add">Take Attendance</Nav.Link>
+            <Nav.Link href="/attendace">Take Attendance</Nav.Link>
             <Nav.Link onClick={(e) => signOut(auth)}>🚪</Nav.Link>
           </Nav>
         </Container>

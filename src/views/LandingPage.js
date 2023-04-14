@@ -13,15 +13,14 @@ export default function LandingPage() {
       return { id: doc.id, ...doc.data() };
     });
     setStudents (students);
-    console.log(students);
   }
 
   useEffect(() => {
     getAllStudents();
   }, []);
 
-  const ImagesRow = () => {
-    return students.map((student, index) => <ImageSquare key={index} student={student} />);
+  const StudentsRow = () => {
+    return students.map((student, index) => <StudentSquare key={index} student={student} />);
   };
 
   return (
@@ -31,10 +30,12 @@ export default function LandingPage() {
           <Navbar.Brand href="/">Learning Steps - Building Your Future</Navbar.Brand>
           <Nav>
             <Nav.Link href="/add">Register</Nav.Link>
-            <Nav.Link href="/add">Take Attendance</Nav.Link>
+            <Nav.Link href="/attendace">Take Attendance</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
+    
+
       <Container>
         <Row>
         <Table striped bordered hover>
@@ -45,7 +46,7 @@ export default function LandingPage() {
         <th>Class</th>
         </tr>
       </thead>
-          <ImagesRow />
+          <StudentsRow />
           </Table>
         </Row>
       </Container>
@@ -53,7 +54,7 @@ export default function LandingPage() {
   );
 }
 
-function ImageSquare({ student }) {
+function StudentSquare({ student }) {
   const { name, school, section, id } = student;
   return (
     <>
