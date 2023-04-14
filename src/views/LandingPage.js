@@ -61,7 +61,7 @@ function ImageSquare({ student }) {
       <tbody>
       <tr>
       <Link
-      to={`post/${id}`}
+      to={`student/${id}`}
       style={{
         width: "18rem",
         marginLeft: "1rem",
