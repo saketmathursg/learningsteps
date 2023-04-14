@@ -1,41 +1,56 @@
 import React, { useEffect, useState } from "react";
 import { Button, Container, Form, Nav, Navbar } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { auth, db } from "../firebase";
 import { signOut } from "firebase/auth";
-import { auth, db} from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { updateDoc, doc, getDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { addDoc, collection } from "firebase/firestore";
 
 
-export default function StudentAdd() {
-    const [user, loading] = useAuthState(auth);
-    const [name, setName] = useState("");
-    const [school, setSchool] = useState("");
-    const [section, setSection] = useState("");
-    const [maths, setMaths] = useState(false);
-    const [physics, setPhysics] = useState(false);
-    const [chemistry, setChemistry] = useState(false);
-    const [biology, setBiology] = useState(false);
-    const navigate = useNavigate();
 
+export default function StudentUpdate() {
+  const params = useParams();
+  const id = params.id;
+  const [name, setName] = useState("");
+  const [school, setSchool] = useState("");
+  const [section, setSection] = useState("");
+  const [maths, setMaths] = useState(false);
+  const [physics, setPhysics] = useState(false);
+  const [chemistry, setChemistry] = useState(false);
+  const [biology, setBiology] = useState(false);
 
-  async function addStudent() {
+  const [user, loading] = useAuthState(auth);
+  const navigate = useNavigate();
 
-    await addDoc(collection(db, "students"), {
-      biology,name,school,section,maths,physics,chemistry,
-         
+  async function updateStudent() {
+    await updateDoc(doc(db, "students", id), {       
+        biology,name,school,section,maths,physics,chemistry,
     });
     navigate("/");
 
-  };
+  }
+
+  async function getStudent(id) {
+    const studentDocument = await getDoc(doc(db, "students", id));
+    const student = studentDocument.data();
+    setName(student.name);
+    setSchool(student.school); 
+    setSection(student.section);
+    setMaths(student.maths);
+    setPhysics(student.physics);
+    setChemistry(student.chemistry);
+    setBiology(student.biology);
+  }
 
   useEffect(() => {
     if (loading) return;
     if (!user) navigate("/login");
-  }, [ navigate, user, loading]);
+    getStudent(id);
+  }, [id, navigate, user, loading]);
 
   return (
-    <>
+    <div>
       <Navbar variant="light" bg="light">
         <Container>
           <Navbar.Brand href="/">Learning Steps - Building Your Future</Navbar.Brand>
@@ -46,9 +61,10 @@ export default function StudentAdd() {
           </Nav>
         </Container>
       </Navbar>
+
       <Container>
-        <h1 style={{ marginBlock: "1rem" }}>Add Student</h1>
-        <Form>
+        <h1 style={{ marginBlock: "1rem" }}>Update Student</h1> 
+          <Form>
           <Form.Group className="mb-3" controlId="name">
             <Form.Label>Name</Form.Label>
             <Form.Control
@@ -82,30 +98,34 @@ export default function StudentAdd() {
           <Form.Check type="switch"
                 id="maths-switch"
                 label="Maths"
+                checked={maths}
                 onChange={(text) => setMaths(text.target.checked)}
                 />
           <Form.Check type="switch"
                 id="physics-switch"
                 label="Physics"
+                checked={physics}
                 onChange={(text) => setPhysics(text.target.checked)}
                 />
                 <Form.Check type="switch"
                 id="chemistry-switch"
                 label="Chemistry"
+                checked={chemistry}
                 onChange={(text) => setChemistry(text.target.checked)}
                 />
                 <Form.Check type="switch"
                 id="biology-switch"
+                checked={biology}
                 label="Biology"
                 onChange={(text) => setBiology(text.target.checked)}
                 />
 
 
-          <Button variant="primary" onClick={async (e) => addStudent()}>
-            Submit 
+          <Button variant="primary" onClick={(e) => updateStudent()}>
+            Submit
           </Button>
         </Form>
       </Container>
-    </>
+    </div>
   );
 }
